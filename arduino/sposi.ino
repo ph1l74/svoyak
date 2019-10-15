@@ -82,7 +82,7 @@ void loop() {
     }
     else {
       stopTimer();
-      Serial.println("status:timer_passed");
+      Serial.println("status:timer:passed");
     }
   } 
 }
@@ -140,13 +140,13 @@ void startTimer() {
   timerStarted = true;
   turnOffLights();
   analogWrite(ledMonitor, 255);
-  Serial.println("status:timer_started");
+  Serial.println("status:timer:started");
 }
 
 void stopTimer() {
   timerStarted = false;
   analogWrite(ledMonitor, 0);
-  Serial.println("status:timer_stopped");
+  Serial.println("status:timer:stopped");
 }
 
 void turnOffLights() {

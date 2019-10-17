@@ -1,10 +1,9 @@
 import sys
 import glob
 import serial
-import threading
-import time # Optional (if using time.sleep() below)
 
-def serial_ports():
+
+def get_serial_ports():
     """ Lists serial port names
 
         :raises EnvironmentError:
@@ -49,15 +48,13 @@ def message_handler(message):
     print(message)
 
 
-def start_session(port, baud_rate=9600):
+def start_reading(port, baud_rate=9600):
     usb_port = serial.Serial(port, baud_rate, timeout=1)
     while True:
         if usb_port.in_waiting > 0:
-            data_str = usb_port.readline(usb_port.in_waiting).decode('ascii')
-            if len(data_str) > 0:
-                incoming_message = string_handler(data_str)
-                message_handler(incoming_message)
-            time.sleep(0.01)
+            incoming_string = usb_port.readline(usb_port.in_waiting).decode('ascii')
+            incoming_message = string_handler(incoming_string)
+            message_handler(incoming_message)
 
 
-start_session('COM5')
+start_reading('COM5')

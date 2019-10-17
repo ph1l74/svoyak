@@ -34,14 +34,14 @@ def get_serial_ports():
 
 def string_handler(incoming_string):
     print(incoming_string)
-    splitted_string = incoming_string.replace('\r\n', '').split(':')
-    message_type = splitted_string[0]
-    message_parameter = splitted_string[1]
-    message_values = splitted_string[2:]
-    message = {"type": message_type,
-               "parameter": message_parameter,
-               "values": message_values}
-    return message
+    # splitted_string = incoming_string.replace('\r\n', '').split(':')
+    # message_type = splitted_string[0]
+    # message_parameter = splitted_string[1]
+    # message_values = splitted_string[2:]
+    # message = {"type": message_type,
+    #            "parameter": message_parameter,
+    #            "values": message_values}
+    # return message
 
 
 def message_handler(message):
@@ -52,9 +52,9 @@ def start_reading(port, baud_rate=9600):
     usb_port = serial.Serial(port, baud_rate, timeout=1)
     while True:
         if usb_port.in_waiting > 0:
-            incoming_string = usb_port.readline(usb_port.in_waiting).decode('ascii')
+            incoming_string = usb_port.read(5)
             incoming_message = string_handler(incoming_string)
-            message_handler(incoming_message)
+        # message_handler(incoming_message)
 
 
 start_reading('COM5')

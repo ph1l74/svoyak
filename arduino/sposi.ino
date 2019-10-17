@@ -62,8 +62,8 @@ void setup() {
   analogWrite(ledOne, 255);
   delay(delayForLED);
   analogWrite(ledOne, 0);
-  Serial.print("system:timer_limit:");
-  Serial.println(timeLimit);
+  Serial.println("system:timer_limit:" + String(timeLimit));
+  delay(10);
 }
 
 void loop() {
@@ -76,13 +76,12 @@ void loop() {
   }
   if(timerStarted){
     if((unsigned long)(millis() - previousMillis) < timeLimit){
-      //Serial.println((unsigned long)(millis() - previousMillis));
-      //Serial.println(timeLimit);
       checkButtons();
     }
     else {
       stopTimer();
       Serial.println("status:timer:passed");
+      delay(10);
     }
   } 
 }
@@ -97,8 +96,8 @@ void readSerial() {
         stopTimer();
       }
       else {
-        Serial.print("system:received:");
-        Serial.print(incomingString);
+        Serial.print("system:received:" + incomingString);\
+        delay(10);
       }
     }
 }
@@ -107,32 +106,32 @@ void checkButtons() {
   if(digitalRead(btnOne)){
     stopTimer();
     analogWrite(ledOne, 255);
-    Serial.print("status:pressed:player1:");
-    Serial.println((millis() - previousMillis));
+    Serial.print("status:pressed:player1:" + (millis() - previousMillis));
+    delay(10);
   }
   else if (digitalRead(btnTwo)) {
     stopTimer();
     analogWrite(ledTwo, 255);
-    Serial.print("status:pressed:player2:");
-    Serial.println((millis() - previousMillis));
+    Serial.print("status:pressed:player2:" + (millis() - previousMillis));
+    delay(10);
   }
   else if (digitalRead(btnThree)) {
     stopTimer();
     analogWrite(ledThree, 255);
-    Serial.print("status:pressed:player3:");
-    Serial.println((millis() - previousMillis));
+    Serial.print("status:pressed:player3:" + (millis() - previousMillis));
+    delay(10);
   }
     else if (digitalRead(btnFour)) {
     stopTimer();
     analogWrite(ledFour, 255);
-    Serial.print("status:pressed:player4:");
-    Serial.println((millis() - previousMillis));
+    Serial.print("status:pressed:player4:" + (millis() - previousMillis));
+    delay(10);
   }
     else if (digitalRead(btnFive)) {
     stopTimer();
     analogWrite(ledFive, 255);
-    Serial.print("status:pressed:player5:");
-    Serial.println((millis() - previousMillis));
+    Serial.print("status:pressed:player5:" + (millis() - previousMillis));
+    delay(10);
   }
 }
 
@@ -141,12 +140,14 @@ void startTimer() {
   turnOffLights();
   analogWrite(ledMonitor, 255);
   Serial.println("status:timer:started");
+  delay(10);
 }
 
 void stopTimer() {
   timerStarted = false;
   analogWrite(ledMonitor, 0);
   Serial.println("status:timer:stopped");
+  delay(10);
 }
 
 void turnOffLights() {
